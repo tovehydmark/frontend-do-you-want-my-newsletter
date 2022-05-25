@@ -1,5 +1,9 @@
+import { ErrorMessage } from "@hookform/error-message";
 import { useState } from "react";
+
+import { useForm } from "react-hook-form";
 import { User } from "../models/User";
+import { IFormInputs } from "../models/UserInterface";
 import { Fetch } from "./Fetch";
 
 export function CreateUser() {
@@ -8,60 +12,134 @@ export function CreateUser() {
   const [password, setPassword] = useState("");
   const [wantsNewsLetter, setWantsNewsLetter] = useState(false);
 
-  //Ensures the browser doesn't update when form is submitted, and clears input fields
-  const onSubmit = (event: { preventDefault: () => void }) => {
-    event.preventDefault();
+  //For validation when registering a new user
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<IFormInputs>({
+    criteriaMode: "all",
+  });
+
+  const onSubmit = (user: User) => {
+    let newUser = new User(username, email, password, wantsNewsLetter);
+    console.log(newUser);
+
+    //Post new user to database
+    Fetch("http://localhost:1337/users/newAccount", "post", newUser);
+
     setUsername("");
     setEmail("");
     setPassword("");
   };
 
+  //Toggles the value of the "wants the news letter" - variable when the box is ticked
   function toggleWantsNewsLetter() {
     setWantsNewsLetter(!wantsNewsLetter);
   }
 
-  //Save user input info to a user object and post to the server
-  function saveNewUser(
-    username: string,
-    email: string,
-    password: string,
-    wantsNewsLetter: boolean
-  ) {
-    let newUser = new User(username, email, password, wantsNewsLetter);
-    console.log(newUser);
-
-    //Posting new user to database
-    Fetch("http://localhost:3000/users/newAccount", "post", newUser);
-  }
-
+  //Returning a sign-up form for new users. Validation and error messages are provided to ensure the right data comes into the database
   return (
     <>
       <h1>Skapa nytt konto</h1>
 
-      <form onSubmit={onSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="username">Användarnamn: </label>
         <input
+          {...register("username", {
+            required: "Ange användarnamn",
+            pattern: {
+              value: /^[A-Za-z]+$/i,
+              message: "Användarnamnet får endast innehålla bokstäver",
+            },
+            minLength: {
+              value: 2,
+              message: "Användarnamnet måste vara minst 5 tecken långt",
+            },
+          })}
           type="text"
           value={username}
           id="username"
           onChange={(e) => setUsername(e.target.value)}
         />
 
+        <ErrorMessage
+          errors={errors}
+          name="username"
+          render={({ messages }) => {
+            console.log("messages: ", messages);
+            return messages
+              ? Object.entries(messages).map(([type, message]) => (
+                  <p className="errorMessage" key={type}>
+                    {message}
+                  </p>
+                ))
+              : null;
+          }}
+        />
+
         <label htmlFor="email">Epost: </label>
         <input
+          {...register("email", {
+            required: "Ange en e-postadress",
+
+            minLength: {
+              value: 7,
+              message: "Lösenordet måste vara minst 7 tecken långt",
+            },
+          })}
           type="text"
           value={email}
           id="email"
           onChange={(e) => setEmail(e.target.value)}
         />
 
+        <ErrorMessage
+          errors={errors}
+          name="email"
+          render={({ messages }) => {
+            console.log("messages: ", messages);
+            return messages
+              ? Object.entries(messages).map(([type, message]) => (
+                  <p className="errorMessage" key={type}>
+                    {message}
+                  </p>
+                ))
+              : null;
+          }}
+        />
+
         <label htmlFor="password">Lösenord: </label>
         <input
+          {...register("password", {
+            required: "Ange ett lösenord",
+
+            minLength: {
+              value: 7,
+              message: "Lösenordet måste vara minst 7 tecken långt",
+            },
+          })}
           type="text"
           value={password}
           id="password"
           onChange={(e) => setPassword(e.target.value)}
         />
+
+        <ErrorMessage
+          errors={errors}
+          name="password"
+          render={({ messages }) => {
+            console.log("messages: ", messages);
+            return messages
+              ? Object.entries(messages).map(([type, message]) => (
+                  <p className="errorMessage" key={type}>
+                    {message}
+                  </p>
+                ))
+              : null;
+          }}
+        />
+
         <label htmlFor="wantsNewsLetter">Vill du ha mitt nyhetsbrev?: </label>
         <input
           type="checkbox"
@@ -70,13 +148,7 @@ export function CreateUser() {
           onClick={toggleWantsNewsLetter}
         />
 
-        <button
-          onClick={() =>
-            saveNewUser(username, email, password, wantsNewsLetter)
-          }
-        >
-          Registrera ny användare
-        </button>
+        <button>Registrera ny användare</button>
       </form>
     </>
   );
