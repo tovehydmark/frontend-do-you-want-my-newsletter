@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { User } from "../models/User";
+import { Fetch } from "./Fetch";
 
 export function CreateUser() {
   const [username, setUsername] = useState("");
@@ -17,6 +18,9 @@ export function CreateUser() {
   //Save user input info to a user object and post to the server
   function saveNewUser(username: string, email: string, password: string) {
     let newUser = new User(username, email, password);
+
+    //Posting new user to database
+    Fetch("http://localhost:3000/users/newAccount", "post", newUser);
   }
 
   return (
@@ -47,6 +51,8 @@ export function CreateUser() {
           id="password"
           onChange={(e) => setPassword(e.target.value)}
         />
+        <label htmlFor="wantsNewsLetter">Vill du ha mitt nyhetsbrev?: </label>
+        <input type="checkbox" name="wantsNewsLetter" id="wantsNewsLetter" />
 
         <button onClick={() => saveNewUser(username, email, password)}>
           Registrera ny användare
