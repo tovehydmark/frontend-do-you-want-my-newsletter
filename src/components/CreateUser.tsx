@@ -6,6 +6,7 @@ export function CreateUser() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [wantsNewsLetter, setWantsNewsLetter] = useState(false);
 
   //Ensures the browser doesn't update when form is submitted, and clears input fields
   const onSubmit = (event: { preventDefault: () => void }) => {
@@ -15,9 +16,19 @@ export function CreateUser() {
     setPassword("");
   };
 
+  function toggleWantsNewsLetter() {
+    setWantsNewsLetter(!wantsNewsLetter);
+  }
+
   //Save user input info to a user object and post to the server
-  function saveNewUser(username: string, email: string, password: string) {
-    let newUser = new User(username, email, password);
+  function saveNewUser(
+    username: string,
+    email: string,
+    password: string,
+    wantsNewsLetter: boolean
+  ) {
+    let newUser = new User(username, email, password, wantsNewsLetter);
+    console.log(newUser);
 
     //Posting new user to database
     Fetch("http://localhost:3000/users/newAccount", "post", newUser);
@@ -52,9 +63,18 @@ export function CreateUser() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <label htmlFor="wantsNewsLetter">Vill du ha mitt nyhetsbrev?: </label>
-        <input type="checkbox" name="wantsNewsLetter" id="wantsNewsLetter" />
+        <input
+          type="checkbox"
+          name="wantsNewsLetter"
+          id="wantsNewsLetter"
+          onClick={toggleWantsNewsLetter}
+        />
 
-        <button onClick={() => saveNewUser(username, email, password)}>
+        <button
+          onClick={() =>
+            saveNewUser(username, email, password, wantsNewsLetter)
+          }
+        >
           Registrera ny användare
         </button>
       </form>
