@@ -21,9 +21,8 @@ export function CreateUser() {
     criteriaMode: "all",
   });
 
-  const onSubmit = (user: User) => {
+  const onSubmit = () => {
     let newUser = new User(username, email, password, wantsNewsLetter);
-    console.log(newUser);
 
     //Post new user to database
     Fetch("http://localhost:1337/users/newAccount", "post", newUser);
@@ -84,8 +83,8 @@ export function CreateUser() {
             required: "Ange en e-postadress",
 
             minLength: {
-              value: 7,
-              message: "Lösenordet måste vara minst 7 tecken långt",
+              value: 4,
+              message: "Lösenordet måste vara minst 4 tecken långt",
             },
           })}
           type="text"

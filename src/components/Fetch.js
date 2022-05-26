@@ -18,6 +18,7 @@ export async function Fetch(url, method, body) {
         }
 
         return await response.json()
+
     } catch (err) {
         throw err
     }
