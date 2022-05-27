@@ -12,8 +12,6 @@ export async function Fetch(url, method, body) {
             }
         })
 
-        console.log(response);
-
         if (response.status === 404) {
             throw new Error("Not found")
         }
