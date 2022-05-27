@@ -7,7 +7,8 @@ export async function Fetch(url, method, body) {
             method,
             body: JSON.stringify(body),
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+
             }
         })
 

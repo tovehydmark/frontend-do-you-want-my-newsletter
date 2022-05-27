@@ -46,7 +46,7 @@ export function Login() {
         if (res.status == 200) {
           console.log("Användare och lösen stämmer");
 
-          localStorage.setItem("loggedInUserId", JSON.stringify(data.message));
+          localStorage.setItem("loggedInUserId", data.message);
 
           //Takes user to loggedIn page
           nav("/LoggedIn");
