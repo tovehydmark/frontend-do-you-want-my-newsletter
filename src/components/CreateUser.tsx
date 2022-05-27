@@ -84,8 +84,8 @@ export function CreateUser() {
             required: "Ange en e-postadress",
 
             minLength: {
-              value: 4,
-              message: "Lösenordet måste vara minst 4 tecken långt",
+              value: 2,
+              message: "Lösenordet måste vara minst 2 tecken långt",
             },
           })}
           type="text"
@@ -115,8 +115,8 @@ export function CreateUser() {
             required: "Ange ett lösenord",
 
             minLength: {
-              value: 7,
-              message: "Lösenordet måste vara minst 7 tecken långt",
+              value: 2,
+              message: "Lösenordet måste vara minst 2 tecken långt",
             },
           })}
           type="text"
