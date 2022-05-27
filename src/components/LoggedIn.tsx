@@ -33,20 +33,9 @@ export function LoggedIn() {
     // let userFromLs = localStorage.getItem("loggedInUserId");
 
     if (loggedInUserId !== null) {
+      //Ensure the right value is in the variable. Sometimes react render weirdly and the value is null when using e.g. loggedInUserId only
       let userIdToSend = loggedInUserId;
       let userId = new UserId(userIdToSend);
-
-      // let response = await fetch("http://localhost:1337/users/loggedin", {
-      //   method: "post",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(userId),
-      // }).then((res) =>
-      //   res.json().then((data) => {
-      //     console.log(data);
-      //   })
-      // );
 
       let response: User = await Fetch(
         "http://localhost:1337/users/loggedin",

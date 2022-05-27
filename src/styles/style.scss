@@ -1,0 +1,68 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&family=Tiro+Devanagari+Hindi&display=swap");
+
+.body-container {
+    text-align: center;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    height: 100%;
+
+
+
+}
+
+.header {
+    background-color: rgb(33, 33, 33);
+    color: white;
+    height: 10vh;
+    position: absolute;
+    width: 100%;
+
+    p {
+        margin: 0;
+    }
+}
+
+.main {
+    background-color: rgb(53, 55, 55);
+    color: white;
+    height: 100vh;
+    padding-top: 100px;
+    display: flex;
+    flex-direction: column;
+
+    h1 {
+        font-family: 'Tiro Devanagari Hindi', serif;
+        font-size: 2rem;
+        margin: 0;
+        padding: 50px;
+    }
+
+    a {
+        color: white;
+    }
+
+    form {
+        input {
+            display: flex;
+            flex-direction: row;
+            margin: 10px auto;
+            padding: 5px;
+        }
+
+        button {
+            padding: 5px;
+            font-family: 'Poppins', sans-serif;
+
+        }
+    }
+
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    height: 10vh;
+    background-color: rgb(33, 33, 33);
+    color: white;
+    width: 100%;
+}
