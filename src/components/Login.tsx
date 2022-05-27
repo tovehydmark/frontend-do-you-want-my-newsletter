@@ -2,7 +2,6 @@ import { ErrorMessage } from "@hookform/error-message";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { LogInUser } from "../models/LogInUser";
-import { Fetch } from "./Fetch";
 
 export function Login() {
   const [username, setUsername] = useState("");
@@ -46,8 +45,10 @@ export function Login() {
     setPassword("");
   };
 
+  //Returns HTML with validation to ensure both password and username is provided by the user
   return (
     <>
+      <h1>Logga in</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="username">Användarnamn: </label>
         <input
@@ -60,18 +61,12 @@ export function Login() {
           onChange={(e) => setUsername(e.target.value)}
         />
 
+        <ErrorMessage errors={errors} name="username" />
+
         <ErrorMessage
           errors={errors}
           name="username"
-          render={({ messages }) => {
-            return messages
-              ? Object.entries(messages).map(([type, message]) => (
-                  <p className="errorMessage" key={type}>
-                    {message}
-                  </p>
-                ))
-              : null;
-          }}
+          render={({ message }) => <p>{message}</p>}
         />
 
         <label htmlFor="password">Lösenord: </label>
@@ -85,19 +80,12 @@ export function Login() {
           onChange={(e) => setPassword(e.target.value)}
         />
 
+        <ErrorMessage errors={errors} name="password" />
+
         <ErrorMessage
           errors={errors}
           name="password"
-          render={({ messages }) => {
-            console.log("messages: ", messages);
-            return messages
-              ? Object.entries(messages).map(([type, message]) => (
-                  <p className="errorMessage" key={type}>
-                    {message}
-                  </p>
-                ))
-              : null;
-          }}
+          render={({ message }) => <p>{message}</p>}
         />
 
         <button>Logga in</button>
