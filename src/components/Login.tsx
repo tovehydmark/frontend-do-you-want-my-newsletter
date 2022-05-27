@@ -1,12 +1,10 @@
 import { ErrorMessage } from "@hookform/error-message";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { LogInUser } from "../models/LogInUser";
-import { LoggedIn } from "./LoggedIn";
 
 import { useNavigate } from "react-router-dom";
-import { CreateUser } from "./CreateUser";
 
 export function Login() {
   const [username, setUsername] = useState("");
@@ -26,29 +24,37 @@ export function Login() {
   const onSubmit = async () => {
     let logInUser = new LogInUser(username, password);
 
+    // let controlUserInDb = Fetch(
+    //   "http://localhost:1337/users/login",
+    //   "post",
+    //   logInUser
+    // ).then((res) =>
+    //   res.json().then((data) => {
+    //     console.log(data);
+    //   })
+    // );
+
     let response = await fetch("http://localhost:1337/users/login", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(logInUser),
-    });
+    }).then((res) =>
+      res.json().then((data) => {
+        //Logs in user if res.status == 200 + sets the userId from server
+        if (res.status == 200) {
+          console.log("Användare och lösen stämmer");
 
-    console.log(response);
+          localStorage.setItem("loggedInUserId", data.message);
 
-    // //Checks if the user is registered
-
-    //Varför kan jag inte använda min fetch-fil för??? får inte tillbaka response...
-
-    // Fetch("http://localhost:1337/users/login", "post", logInUser);
-
-    if (response.status == 200) {
-      console.log("Användare och lösen stämmer");
-
-      nav("/LoggedIn");
-    } else {
-      console.log("Fel användarnamn eller lösenord, var god försök igen");
-    }
+          //Takes user to loggedIn page
+          nav("/LoggedIn");
+        } else {
+          console.log("Fel användarnamn eller lösenord, var god försök igen");
+        }
+      })
+    );
 
     setUsername("");
     setPassword("");
