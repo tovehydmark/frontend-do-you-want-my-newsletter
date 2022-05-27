@@ -2,6 +2,7 @@ import { ErrorMessage } from "@hookform/error-message";
 import { useState } from "react";
 
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 import { User } from "../models/User";
 import { IFormInputs } from "../models/UserInterface";
 import { Fetch } from "./Fetch";
@@ -149,6 +150,8 @@ export function CreateUser() {
 
         <button>Registrera ny användare</button>
       </form>
+
+      <Link to={`/`}>Tillbaka till start</Link>
     </>
   );
 }

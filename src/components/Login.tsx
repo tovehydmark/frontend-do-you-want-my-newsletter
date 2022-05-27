@@ -1,11 +1,18 @@
 import { ErrorMessage } from "@hookform/error-message";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Link, Navigate } from "react-router-dom";
 import { LogInUser } from "../models/LogInUser";
+import { LoggedIn } from "./LoggedIn";
+
+import { useNavigate } from "react-router-dom";
+import { CreateUser } from "./CreateUser";
 
 export function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const nav = useNavigate();
 
   //For validation when user tries to login
   const {
@@ -37,6 +44,8 @@ export function Login() {
 
     if (response.status == 200) {
       console.log("Användare och lösen stämmer");
+
+      nav("/LoggedIn");
     } else {
       console.log("Fel användarnamn eller lösenord, var god försök igen");
     }
@@ -90,6 +99,8 @@ export function Login() {
 
         <button>Logga in</button>
       </form>
+
+      <Link to={`/CreateUser`}>Skapa nytt konto</Link>
     </>
   );
 }
