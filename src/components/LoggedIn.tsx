@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { User } from "../models/User";
 import { UserId } from "../models/UserId";
+import { IFormInputs } from "../models/UserInterface";
 import { Fetch } from "./Fetch";
 
 export function LoggedIn() {
   const [loggedInUserId, setLoggedInUserId] = useState<string>("");
+  const [loggedInUserName, setLoggedInUserName] = useState<string>("");
 
   // const [isLoggedin, setIsLoggedin] = useState(false);
 
@@ -30,7 +33,8 @@ export function LoggedIn() {
     // let userFromLs = localStorage.getItem("loggedInUserId");
 
     if (loggedInUserId !== null) {
-      let userId = new UserId(loggedInUserId);
+      let userIdToSend = loggedInUserId;
+      let userId = new UserId(userIdToSend);
 
       // let response = await fetch("http://localhost:1337/users/loggedin", {
       //   method: "post",
@@ -44,19 +48,26 @@ export function LoggedIn() {
       //   })
       // );
 
-      let response = await Fetch(
+      let response: User = await Fetch(
         "http://localhost:1337/users/loggedin",
         "post",
         userId
       ).then((res) => {
         console.log(res);
+
+        setLoggedInUserName(res[0].username);
+
+        return res;
       });
+
+      console.log(response);
+      console.log(response.username);
     }
   };
 
   return (
     <>
-      <p>Logged in </p>
+      <p>Välkommen {loggedInUserName} </p>
     </>
   );
 }
