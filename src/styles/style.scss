@@ -58,6 +58,18 @@
 
 }
 
+.loggedInView {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    button {
+        width: 30%;
+        margin: 5px auto;
+
+    }
+}
+
 .footer {
     position: fixed;
     bottom: 0;
