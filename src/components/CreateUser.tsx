@@ -22,11 +22,27 @@ export function CreateUser() {
     criteriaMode: "all",
   });
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     let newUser = new User(username, email, password, wantsNewsLetter);
 
     //Post new user to database
-    Fetch("http://localhost:1337/users/newAccount", "post", newUser);
+    Fetch("http://localhost:1337/users/newAccount", "post", newUser).then(
+      (data) => {
+        let responseFromServer = data;
+        console.log(responseFromServer);
+
+        if (
+          responseFromServer == "Username is taken, please try another name"
+        ) {
+          alert("Användarnamn upptaget");
+          return;
+        } else {
+          if (username.length > 6 && password.length > 6 && email.length > 6) {
+            alert("New user created");
+          }
+        }
+      }
+    );
 
     setUsername("");
     setEmail("");
@@ -38,11 +54,11 @@ export function CreateUser() {
     setWantsNewsLetter(!wantsNewsLetter);
   }
   //Only alerts new user created if all fields are filled correctly (only then a new user will be posted to the database)
-  function login() {
-    if (username.length > 6 && password.length > 6 && email.length > 6) {
-      alert("New user created");
-    }
-  }
+  // function login() {
+  //   if (username.length > 6 && password.length > 6 && email.length > 6) {
+  //     alert("New user created");
+  //   }
+  // }
 
   //Returning a sign-up form for new users. Validation and error messages are provided to ensure the right data comes into the database
   return (
@@ -154,11 +170,7 @@ export function CreateUser() {
           onClick={toggleWantsNewsLetter}
         />
 
-        <button
-          type="submit"
-          disabled={!username || !email || !password}
-          onClick={login}
-        >
+        <button type="submit" disabled={!username || !email || !password}>
           Registrera ny användare
         </button>
         <Link to={`/`}>Tillbaka till start</Link>
