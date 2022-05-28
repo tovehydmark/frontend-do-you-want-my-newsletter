@@ -33,9 +33,15 @@ export function CreateUser() {
     setPassword("");
   };
 
-  //Toggles the value of the "wants the news letter" - variable when the box is ticked
+  //Toggles the value of the "wants the news letter" when the box is ticked
   function toggleWantsNewsLetter() {
     setWantsNewsLetter(!wantsNewsLetter);
+  }
+
+  function login() {
+    if (username.length > 6 && password.length > 6 && email.length > 6) {
+      alert("New user created");
+    }
   }
 
   //Returning a sign-up form for new users. Validation and error messages are provided to ensure the right data comes into the database
@@ -53,8 +59,8 @@ export function CreateUser() {
               message: "Användarnamnet får endast innehålla bokstäver",
             },
             minLength: {
-              value: 2,
-              message: "Användarnamnet måste vara minst 5 tecken långt",
+              value: 7,
+              message: "Användarnamnet måste vara minst 7 tecken långt",
             },
           })}
           type="text"
@@ -84,8 +90,8 @@ export function CreateUser() {
             required: "Ange en e-postadress",
 
             minLength: {
-              value: 2,
-              message: "Lösenordet måste vara minst 2 tecken långt",
+              value: 7,
+              message: "Ange en riktig e-post, minst 7 tecken lång",
             },
           })}
           type="text"
@@ -115,8 +121,8 @@ export function CreateUser() {
             required: "Ange ett lösenord",
 
             minLength: {
-              value: 2,
-              message: "Lösenordet måste vara minst 2 tecken långt",
+              value: 7,
+              message: "Lösenordet måste vara minst 7 tecken långt",
             },
           })}
           type="text"
@@ -148,10 +154,15 @@ export function CreateUser() {
           onClick={toggleWantsNewsLetter}
         />
 
-        <button>Registrera ny användare</button>
+        <button
+          type="submit"
+          disabled={!username || !email || !password}
+          onClick={login}
+        >
+          Registrera ny användare
+        </button>
+        <Link to={`/`}>Tillbaka till start</Link>
       </form>
-
-      <Link to={`/`}>Tillbaka till start</Link>
     </>
   );
 }
