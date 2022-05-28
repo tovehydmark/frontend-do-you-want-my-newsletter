@@ -13,7 +13,7 @@
 .header {
     background-color: rgb(33, 33, 33);
     color: white;
-    height: 10vh;
+    height: 100px;
     position: absolute;
     width: 100%;
 
@@ -39,9 +39,16 @@
 
     a {
         color: white;
+        display: block;
+        margin: 20px auto;
     }
 
     form {
+
+        padding-bottom: 100px;
+        background-color: rgb(53, 55, 55);
+
+
         input {
             display: flex;
             flex-direction: row;
@@ -54,6 +61,8 @@
             font-family: 'Poppins', sans-serif;
 
         }
+
+
     }
 
 }
@@ -73,7 +82,7 @@
 .footer {
     position: fixed;
     bottom: 0;
-    height: 10vh;
+    height: 50px;
     background-color: rgb(33, 33, 33);
     color: white;
     width: 100%;
