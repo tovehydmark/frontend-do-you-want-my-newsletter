@@ -19,12 +19,11 @@ export function LoggedIn() {
   useEffect(() => {
     let userFromLs = localStorage.getItem("loggedInUserId");
 
-    //If no user is logged in, one is redirected to login page if trying to access /LogedIn route
+    //If no user is logged in, user is redirected to login page if trying to access /LogedIn route
     if (!userFromLs) {
       nav("/");
     } else {
       setLoggedInUserId(userFromLs);
-      // setIsLoggedin(true);
     }
   }, []);
 
@@ -33,8 +32,6 @@ export function LoggedIn() {
   }, [loggedInUserId]);
 
   const presentUserDetails = async () => {
-    // let userFromLs = localStorage.getItem("loggedInUserId");
-
     if (loggedInUserId !== null) {
       //Ensure the right value is in the variable. Sometimes react render weirdly and the value is null when using e.g. loggedInUserId only
       let userIdToSend = loggedInUserId;
@@ -55,6 +52,7 @@ export function LoggedIn() {
     }
   };
 
+  //Changes subscription status in db via "put" based on userId, when clicking the change subscription button
   async function changeSubscriptionStatus() {
     setLoggedInSubscriptionStatus(!loggedInSubscriptionStatus);
 
@@ -87,6 +85,11 @@ export function LoggedIn() {
     });
   }
 
+  function logout() {
+    localStorage.clear();
+    nav("/");
+  }
+
   return (
     <>
       <div className="loggedInView">
@@ -99,7 +102,7 @@ export function LoggedIn() {
         <button onClick={changeSubscriptionStatus}>
           {loggedInSubscriptionStatus ? "Avprenumerera" : "Prenumerera"}
         </button>
-        <button>Logga ut</button>
+        <button onClick={logout}>Logga ut</button>
       </div>
     </>
   );
