@@ -28,8 +28,7 @@ export function Login() {
     //   "http://localhost:1337/users/login",
     //   "post",
     //   logInUser
-    // ).then((res) =>
-    //   res.json().then((data) => {
+    // ).then((data) => {
     //     console.log(data);
     //   })
     // );
@@ -51,7 +50,7 @@ export function Login() {
           //Takes user to loggedIn page
           nav("/LoggedIn");
         } else {
-          console.log("Fel användarnamn eller lösenord, var god försök igen");
+          alert("Fel användarnamn eller lösenord, var god försök igen");
         }
       })
     );
@@ -96,7 +95,7 @@ export function Login() {
               message: "Lösenordet  måste innehålla minst 7 tecken",
             },
           })}
-          type="text"
+          type="password"
           value={password}
           id="password"
           onChange={(e) => setPassword(e.target.value)}
