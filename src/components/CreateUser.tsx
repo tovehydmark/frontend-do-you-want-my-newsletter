@@ -37,7 +37,7 @@ export function CreateUser() {
   function toggleWantsNewsLetter() {
     setWantsNewsLetter(!wantsNewsLetter);
   }
-
+  //Only alerts new user created if all fields are filled correctly (only then a new user will be posted to the database)
   function login() {
     if (username.length > 6 && password.length > 6 && email.length > 6) {
       alert("New user created");

@@ -68,15 +68,17 @@ export function Login() {
         <label htmlFor="username">Användarnamn: </label>
         <input
           {...register("username", {
-            required: "Ange användarnamn",
+            required: "Ange ett användarnamn",
+            minLength: {
+              value: 7,
+              message: "Användarnamnet måste innehålla minst 7 tecken",
+            },
           })}
           type="text"
           value={username}
           id="username"
           onChange={(e) => setUsername(e.target.value)}
         />
-
-        <ErrorMessage errors={errors} name="username" />
 
         <ErrorMessage
           errors={errors}
@@ -87,15 +89,18 @@ export function Login() {
         <label htmlFor="password">Lösenord: </label>
         <input
           {...register("password", {
-            required: "Ange lösenord",
+            required: "Ange ett lösenord",
+
+            minLength: {
+              value: 7,
+              message: "Lösenordet  måste innehålla minst 7 tecken",
+            },
           })}
           type="text"
           value={password}
           id="password"
           onChange={(e) => setPassword(e.target.value)}
         />
-
-        <ErrorMessage errors={errors} name="password" />
 
         <ErrorMessage
           errors={errors}
