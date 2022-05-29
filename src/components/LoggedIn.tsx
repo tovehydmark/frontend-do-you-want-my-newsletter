@@ -76,7 +76,7 @@ export function LoggedIn() {
   return (
     <>
       <div className="loggedInView">
-        <p>Välkommen {loggedInUserName} </p>
+        <h2>Välkommen {loggedInUserName} </h2>
         <p>
           {loggedInSubscriptionStatus
             ? "Trött på våra utskick?"

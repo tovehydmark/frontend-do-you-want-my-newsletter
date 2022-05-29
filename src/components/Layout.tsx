@@ -6,7 +6,7 @@ export function Layout() {
   return (
     <div className="body-container">
       <header className="header">
-        <p>Företagslogga</p>
+        <h2>kramdyh.ltd</h2>
       </header>
       <main className="main">
         <Outlet></Outlet>
