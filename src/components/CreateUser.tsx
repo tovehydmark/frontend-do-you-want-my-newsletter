@@ -26,23 +26,23 @@ export function CreateUser() {
     let newUser = new User(username, email, password, wantsNewsLetter);
 
     //Post new user to database
-    Fetch("https://backendforlogintaskone.herokuapp.com/users/newAccount", "post", newUser).then(
-      (data) => {
-        let responseFromServer = data;
-        console.log(responseFromServer);
+    Fetch(
+      "https://backendforlogintaskone.herokuapp.com/users/newAccount",
+      "post",
+      newUser
+    ).then((data) => {
+      let responseFromServer = data;
+      // console.log(responseFromServer);
 
-        if (
-          responseFromServer == "Username is taken, please try another name"
-        ) {
-          alert("Användarnamn upptaget");
-          return;
-        } else {
-          if (username.length > 6 && password.length > 6 && email.length > 6) {
-            alert("New user created");
-          }
+      if (responseFromServer == "Username is taken, please try another name") {
+        alert("Användarnamn upptaget");
+        return;
+      } else {
+        if (username.length > 6 && password.length > 6 && email.length > 6) {
+          alert("New user created");
         }
       }
-    );
+    });
 
     setUsername("");
     setEmail("");
@@ -53,12 +53,7 @@ export function CreateUser() {
   function toggleWantsNewsLetter() {
     setWantsNewsLetter(!wantsNewsLetter);
   }
-  //Only alerts new user created if all fields are filled correctly (only then a new user will be posted to the database)
-  // function login() {
-  //   if (username.length > 6 && password.length > 6 && email.length > 6) {
-  //     alert("New user created");
-  //   }
-  // }
+
 
   //Returning a sign-up form for new users. Validation and error messages are provided to ensure the right data comes into the database
   return (

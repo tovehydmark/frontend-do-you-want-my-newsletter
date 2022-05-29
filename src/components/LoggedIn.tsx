@@ -12,8 +12,6 @@ export function LoggedIn() {
   const [loggedInSubscriptionStatus, setLoggedInSubscriptionStatus] =
     useState<boolean>(false);
 
-  // const [isLoggedin, setIsLoggedin] = useState(false);
-
   const nav = useNavigate();
 
   useEffect(() => {
@@ -42,7 +40,7 @@ export function LoggedIn() {
         "post",
         userId
       ).then((res) => {
-        console.log(res);
+        // console.log(res);
 
         setLoggedInUserName(res[0].username);
         setLoggedInSubscriptionStatus(res[0].wantsNewsLetter);
@@ -66,7 +64,7 @@ export function LoggedIn() {
       "put",
       updateUser
     ).then((data: any) => {
-      console.log(data);
+      // console.log(data);
     });
   }
 
