@@ -38,7 +38,7 @@ export function LoggedIn() {
       let userId = new UserId(userIdToSend);
 
       let response: User = await Fetch(
-        "http://localhost:1337/users/loggedin",
+        "https://backendforlogintaskone.herokuapp.com/users/loggedin",
         "post",
         userId
       ).then((res) => {
@@ -61,23 +61,8 @@ export function LoggedIn() {
       !loggedInSubscriptionStatus
     );
 
-    // let response = await fetch(
-    //   "http://localhost:1337/users/updateSubscription",
-    //   {
-    //     method: "put",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(updateUser),
-    //   }
-    // )
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //   });
-
     await Fetch(
-      "http://localhost:1337/users/updateSubscription",
+      "https://backendforlogintaskone.herokuapp.com/users/updateSubscription",
       "put",
       updateUser
     ).then((data: any) => {

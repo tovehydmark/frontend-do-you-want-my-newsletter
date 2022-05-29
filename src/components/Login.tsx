@@ -24,22 +24,16 @@ export function Login() {
   const onSubmit = async () => {
     let logInUser = new LogInUser(username, password);
 
-    // let controlUserInDb = Fetch(
-    //   "http://localhost:1337/users/login",
-    //   "post",
-    //   logInUser
-    // ).then((data) => {
-    //     console.log(data);
-    //   })
-    // );
-
-    let response = await fetch("http://localhost:1337/users/login", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(logInUser),
-    }).then((res) =>
+    let response = await fetch(
+      "https://backendforlogintaskone.herokuapp.com/users/login",
+      {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(logInUser),
+      }
+    ).then((res) =>
       res.json().then((data) => {
         //Logs in user if res.status == 200 + sets the userId from server
         if (res.status == 200) {

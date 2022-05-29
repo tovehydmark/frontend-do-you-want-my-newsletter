@@ -26,7 +26,7 @@ export function CreateUser() {
     let newUser = new User(username, email, password, wantsNewsLetter);
 
     //Post new user to database
-    Fetch("http://localhost:1337/users/newAccount", "post", newUser).then(
+    Fetch("https://backendforlogintaskone.herokuapp.com/users/newAccount", "post", newUser).then(
       (data) => {
         let responseFromServer = data;
         console.log(responseFromServer);
